@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="game_store.app.controllers.OrdersController"
+            style="-fx-background-color: #f8f9fa; -fx-pref-width: 600; -fx-pref-height: 500;">
+
+    <!-- Верхняя панель -->
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="📦 История заказов" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="userInfoLabel" style="-fx-text-fill: #666; -fx-font-size: 12px;"/>
+        </HBox>
+    </top>
+
+    <!-- Центральная таблица -->
+    <center>
+        <TableView fx:id="ordersTable" style="-fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-background-color: white;">
+            <columns>
+                <TableColumn fx:id="idColumn" text="№ заказа" prefWidth="120"/>
+                <TableColumn fx:id="dateColumn" text="Дата заказа" prefWidth="200"/>
+                <TableColumn fx:id="totalColumn" text="Сумма заказа" prefWidth="150"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <!-- Нижняя панель -->
+    <bottom>
+        <HBox spacing="15" alignment="CENTER" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1 0 0 0;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Button text="📋 Показать позиции" onAction="#showSelectedOrderItems"
+                    style="-fx-background-color: #17a2b8; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 180;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="✕ Закрыть" onAction="#close"
+                    style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 120;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

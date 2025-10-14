@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="game_store.app.controllers.CatalogController"
+            style="-fx-background-color: #f8f9fa;">
+
+    <!-- Верхняя панель -->
+    <top>
+        <VBox spacing="15" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <!-- Заголовок и кнопка админа -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Каталог игр" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="adminButton" text="⚙ Админ-панель" onAction="#openAdminPanel"
+                        style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </HBox>
+
+            <!-- Панель поиска и фильтров -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <VBox spacing="5">
+                    <Label text="Поиск игр" style="-fx-font-weight: bold; -fx-text-fill: #666;"/>
+                    <HBox spacing="5">
+                        <TextField fx:id="searchField" promptText="Название игры..."
+                                   style="-fx-pref-width: 250; -fx-background-radius: 5;"/>
+                        <Button text="Найти" onAction="#onSearch"
+                                style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                    </HBox>
+                </VBox>
+
+                <VBox spacing="5">
+                    <Label text="Фильтр по жанру" style="-fx-font-weight: bold; -fx-text-fill: #666;"/>
+                    <ComboBox fx:id="genreComboBox" style="-fx-pref-width: 200; -fx-background-radius: 5;"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Центральная таблица -->
+    <center>
+        <TableView fx:id="gameTable" style="-fx-border-color: #e0e0e0; -fx-border-radius: 5;">
+            <columns>
+                <TableColumn fx:id="nameColumn" text="Название" prefWidth="300"/>
+                <TableColumn fx:id="genreColumn" text="Жанр" prefWidth="200"/>
+                <TableColumn fx:id="priceColumn" text="Цена" prefWidth="150"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <!-- Нижняя панель -->
+    <bottom>
+        <HBox spacing="15" alignment="CENTER" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1 0 0 0;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <!-- Левая часть - управление аккаунтом -->
+            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                <Label text="Управление аккаунтом" style="-fx-font-weight: bold; -fx-text-fill: #666;"/>
+                <Button text="🚪 Выйти из аккаунта" onAction="#backToLoginFromCatalog"
+                        style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 5;"/>
+            </VBox>
+
+            <!-- Правая часть - корзина и заказы -->
+            <VBox spacing="5">
+                <Label text="Корзина и заказы" style="-fx-font-weight: bold; -fx-text-fill: #666;"/>
+                <HBox spacing="10">
+                    <Button text="📦 История заказов" onAction="#openOrders"
+                            style="-fx-background-color: #17a2b8; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                    <Button text="➕ Добавить в корзину" onAction="#addToCart"
+                            style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                    <Button text="🛒 Открыть корзину" onAction="#openCart"
+                            style="-fx-background-color: #ffc107; -fx-text-fill: #333; -fx-background-radius: 5;"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </bottom>
+
+</BorderPane>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="game_store.app.controllers.AdminController"
+            style="-fx-background-color: #f8f9fa; -fx-pref-width: 1200; -fx-pref-height: 700;">
+
+    <!-- Верхняя панель -->
+    <top>
+        <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Button text="← В каталог" onAction="#openCatalog"
+                    style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
+            <Label text="⚙ Панель администратора - Управление играми"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+        </HBox>
+    </top>
+
+    <!-- Таблица -->
+    <center>
+        <TableView fx:id="gameTable" style="-fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-background-color: white;">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
+                <TableColumn fx:id="titleColumn" text="Название" prefWidth="200"/>
+                <TableColumn fx:id="genreColumn" text="Жанр" prefWidth="120"/>
+                <TableColumn fx:id="priceColumn" text="Цена" prefWidth="100"/>
+                <TableColumn fx:id="releaseDateColumn" text="Дата релиза" prefWidth="120"/>
+                <TableColumn fx:id="developerColumn" text="Разработчик" prefWidth="150"/>
+                <TableColumn fx:id="publisherColumn" text="Издатель" prefWidth="150"/>
+                <TableColumn fx:id="descriptionColumn" text="Описание" prefWidth="300"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <!-- Форма для редактирования -->
+    <bottom>
+        <VBox spacing="15" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1 0 0 0;">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Первая строка формы -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <VBox spacing="5">
+                    <Label text="Название игры" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+                    <TextField fx:id="titleField" promptText="Введите название"
+                               style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-width: 250;"/>
+                </VBox>
+
+                <VBox spacing="5">
+                    <Label text="Жанр" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+                    <TextField fx:id="genreField" promptText="Введите жанр"
+                               style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-width: 150;"/>
+                </VBox>
+
+                <VBox spacing="5">
+                    <Label text="Цена" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+                    <TextField fx:id="priceField" promptText="0.00"
+                               style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-width: 120;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Вторая строка формы -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <VBox spacing="5">
+                    <Label text="Дата релиза" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+                    <DatePicker fx:id="releaseDatePicker"
+                                style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-width: 180;"/>
+                </VBox>
+
+                <VBox spacing="5">
+                    <Label text="Разработчик" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+                    <TextField fx:id="developerField" promptText="Введите разработчика"
+                               style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-width: 180;"/>
+                </VBox>
+
+                <VBox spacing="5">
+                    <Label text="Издатель" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+                    <TextField fx:id="publisherField" promptText="Введите издателя"
+                               style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-width: 180;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Описание -->
+            <VBox spacing="5">
+                <Label text="Описание игры" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+                <TextArea fx:id="descriptionArea" promptText="Введите описание игры" wrapText="true"
+                          style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 80;"/>
+            </VBox>
+
+            <!-- Кнопки управления -->
+            <HBox spacing="15" alignment="CENTER">
+                <Button fx:id="addButton" text="➕ Добавить"
+                        style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 120;"/>
+                <Button fx:id="updateButton" text="✏️ Изменить"
+                        style="-fx-background-color: #17a2b8; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 120;"/>
+                <Button fx:id="deleteButton" text="🗑️ Удалить"
+                        style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 120;"/>
+                <Button fx:id="clearButton" text="🧹 Очистить"
+                        style="-fx-background-color: #ffc107; -fx-text-fill: #333; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 120;"/>
+            </HBox>
+        </VBox>
+    </bottom>
+
+</BorderPane>

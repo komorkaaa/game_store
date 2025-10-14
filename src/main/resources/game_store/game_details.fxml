@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="game_store.app.controllers.GameDetailsController"
+            prefWidth="500" prefHeight="550"
+            style="-fx-background-color: #f8f9fa;">
+
+    <!-- Верхняя панель -->
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="🎮 Информация об игре" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+        </HBox>
+    </top>
+
+    <!-- Центральная часть -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background: white; -fx-border-color: white;">
+            <VBox spacing="20" alignment="TOP_CENTER" style="-fx-padding: 25;">
+
+                <!-- Изображение игры -->
+                <ImageView fx:id="gameImage" fitWidth="250" preserveRatio="true"
+                           style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);"/>
+
+                <!-- Основная информация -->
+                <VBox spacing="15" alignment="CENTER_LEFT" style="-fx-pref-width: 400;">
+
+                    <!-- Название -->
+                    <VBox spacing="5">
+                        <Label text="Название игры" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+                        <Label fx:id="titleLabel" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-wrap-text: true;"/>
+                    </VBox>
+
+                    <!-- Жанр и цена в одной строке -->
+                    <HBox spacing="30" alignment="CENTER_LEFT">
+                        <VBox spacing="5">
+                            <Label text="Разработчик" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+                            <Label fx:id="developerLabel" style="-fx-font-size: 14px; -fx-text-fill: #333;"/>
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <Label text="Издатель" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+                            <Label fx:id="publisherLabel" style="-fx-font-size: 14px; -fx-text-fill: #333;"/>
+                        </VBox>
+                    </HBox>
+
+                    <HBox spacing="30" alignment="CENTER_LEFT">
+
+                        <VBox spacing="5">
+                            <Label text="Жанр" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+                            <Label fx:id="genreLabel" style="-fx-font-size: 14px; -fx-text-fill: #333;"/>
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <Label text="Цена" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+                            <Label fx:id="priceLabel" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #28a745;"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Описание -->
+                    <VBox spacing="5" VBox.vgrow="ALWAYS">
+                        <Label text="Описание" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+                        <TextArea fx:id="descriptionArea" editable="false" wrapText="true"
+                                  style="-fx-background-color: #f8f9fa; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 120;"/>
+                    </VBox>
+
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Нижняя панель с кнопками -->
+    <bottom>
+        <HBox spacing="15" alignment="CENTER" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1 0 0 0;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Button text="🛒 Добавить в корзину" onAction="#addToCart"
+                    style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 180;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="✕ Закрыть" onAction="#closeWindow"
+                    style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 120;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

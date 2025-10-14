@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="game_store.app.controllers.CartController"
+            style="-fx-background-color: #f8f9fa;">
+
+    <!-- Верхняя панель -->
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="🛒 Корзина покупок" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="← Вернуться в каталог" onAction="#backToCatalog"
+                    style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
+        </HBox>
+    </top>
+
+    <!-- Центральная таблица -->
+    <center>
+        <TableView fx:id="cartTable" style="-fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-background-color: white;">
+            <columns>
+                <TableColumn fx:id="nameColumn" text="Название игры" prefWidth="300"/>
+                <TableColumn fx:id="priceColumn" text="Цена за шт." prefWidth="120"/>
+                <TableColumn fx:id="quantityColumn" text="Кол-во" prefWidth="80"/>
+                <TableColumn fx:id="totalColumn" text="Итого" prefWidth="120"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <!-- Нижняя панель -->
+    <bottom>
+        <VBox spacing="15" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1 0 0 0;">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Блок с общей суммой -->
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Label text="Общая сумма заказа:" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #666;"/>
+                <Label fx:id="totalLabel" text="0.0 ₽" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #28a745;"/>
+            </HBox>
+
+            <!-- Кнопки управления -->
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="🗑️ Очистить корзину" onAction="#clearCart"
+                        style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 150;"/>
+                <Button text="✅ Оформить заказ" onAction="#checkout"
+                        style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 150;"/>
+            </HBox>
+        </VBox>
+    </bottom>
+
+</BorderPane>

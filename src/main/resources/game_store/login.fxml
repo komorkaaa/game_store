@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" alignment="CENTER" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="game_store.app.controllers.LoginController"
+      style="-fx-padding: 40; -fx-background-color: #f8f9fa; -fx-pref-width: 400; -fx-pref-height: 400;">
+
+    <!-- Заголовок -->
+    <VBox spacing="10" alignment="CENTER">
+        <Label text="🔐" style="-fx-font-size: 32px;"/>
+        <Label text="Вход в систему" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+        <Label text="Добро пожаловать в GameStore" style="-fx-font-size: 14px; -fx-text-fill: #666;"/>
+    </VBox>
+
+    <!-- Форма входа -->
+    <VBox spacing="15" alignment="CENTER_LEFT" style="-fx-pref-width: 300;">
+
+        <!-- Поле имени пользователя -->
+        <VBox spacing="5">
+            <Label text="Имя пользователя" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <TextField fx:id="usernameField" promptText="Введите ваш логин"
+                       style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;"/>
+        </VBox>
+
+        <!-- Поле пароля -->
+        <VBox spacing="5">
+            <Label text="Пароль" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <PasswordField fx:id="passwordField" promptText="Введите ваш пароль"
+                           style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;"/>
+        </VBox>
+
+        <!-- Сообщение об ошибке -->
+        <Label fx:id="messageLabel" style="-fx-text-fill: #dc3545; -fx-font-size: 12px; -fx-wrap-text: true;"
+               minHeight="40" VBox.vgrow="ALWAYS"/>
+
+    </VBox>
+
+    <!-- Кнопки -->
+    <VBox spacing="10" alignment="CENTER" style="-fx-pref-width: 300;">
+        <Button text="🚪 Войти" onAction="#login"
+                style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 300; -fx-pref-height: 40;"/>
+
+        <HBox spacing="5" alignment="CENTER">
+            <Label text="Нет аккаунта?" style="-fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <Button text="Зарегистрироваться" onAction="#openRegister"
+                    style="-fx-background-color: transparent; -fx-text-fill: #007bff; -fx-font-weight: bold; -fx-border-color: transparent; -fx-padding: 0;"/>
+        </HBox>
+    </VBox>
+
+</VBox>
