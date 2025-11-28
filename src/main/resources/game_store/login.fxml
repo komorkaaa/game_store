@@ -47,6 +47,12 @@
             <Button text="Зарегистрироваться" onAction="#openRegister"
                     style="-fx-background-color: transparent; -fx-text-fill: #007bff; -fx-font-weight: bold; -fx-border-color: transparent; -fx-padding: 0;"/>
         </HBox>
+
+        <HBox spacing="5" alignment="CENTER">
+            <Label text="Не работает?" style="-fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <Button text="Отредактировать БД!" onAction="#opeDBSettings"
+                    style="-fx-background-color: transparent; -fx-text-fill: green; -fx-font-weight: bold; -fx-border-color: transparent; -fx-padding: 0;"/>
+        </HBox>
     </VBox>
 
 </VBox>

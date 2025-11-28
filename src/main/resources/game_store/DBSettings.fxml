@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" alignment="CENTER" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="game_store.app.controllers.DBSettingsController"
+      style="-fx-padding: 40; -fx-background-color: #f8f9fa; -fx-pref-width: 400; -fx-pref-height: 400;">
+
+
+    <VBox spacing="15" alignment="CENTER_LEFT" style="-fx-pref-width: 300;">
+
+        <VBox spacing="5">
+            <Label text="Host" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <TextField fx:id="HOST" promptText="Введите host"
+                       style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Port" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <TextField fx:id="PORT" promptText="Введите port"
+                       style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Имя базы данных" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <TextField fx:id="DB_NAME" promptText="Введите имя базы данных"
+                       style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Логин" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <TextField fx:id="LOGIN" promptText="Введите login"
+                       style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Password" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <PasswordField fx:id="PASS" promptText="Введите ваш пароль"
+                           style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;"/>
+        </VBox>
+
+        <Label fx:id="messageLabel" style="-fx-text-fill: #dc3545; -fx-font-size: 12px; -fx-wrap-text: true;"
+               minHeight="40" VBox.vgrow="ALWAYS"/>
+
+    </VBox>
+
+
+    <VBox spacing="10" alignment="CENTER" style="-fx-pref-width: 300;">
+
+        <Button text="Сохранить"  fx:id="save" onAction="#save"
+                style="-fx-background-color: #28a745 ; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 200; -fx-pref-height: 40;"/>
+
+
+        <Button text="Назад"  fx:id="button" onAction="#backToLogin"
+                style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 200; -fx-pref-height: 40;"/>
+
+    </VBox>
+
+</VBox>

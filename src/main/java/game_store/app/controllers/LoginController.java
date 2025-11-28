@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -74,5 +75,16 @@ public class LoginController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  @FXML
+  private void opeDBSettings() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/game_store/DBSettings.fxml"));
+      Stage stage = (Stage) usernameField.getScene().getWindow();
+      stage.setScene(new Scene(loader.load(), 500, 550));
+      stage.centerOnScreen();
+    } catch (Exception e) {
+    e.printStackTrace();}
   }
 }
