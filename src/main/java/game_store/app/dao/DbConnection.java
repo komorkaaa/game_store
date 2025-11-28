@@ -28,4 +28,11 @@ public class DbConnection {
     return dbConn;
   }
 
+  public boolean canConnect() {
+    try (Connection conn = getConnection()) {
+      return true;
+    } catch (SQLException | ClassNotFoundException e) {
+      return false;
+    }
+  }
 }

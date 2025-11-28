@@ -1,5 +1,6 @@
 package game_store.app.controllers;
 
+import game_store.app.dao.DbConnection;
 import game_store.app.dao.UserDAO;
 
 import game_store.app.models.Session;
@@ -13,6 +14,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.postgresql.util.PSQLException;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import static java.sql.DriverManager.getConnection;
 
 public class LoginController {
 
@@ -26,12 +33,19 @@ public class LoginController {
   private Label messageLabel;
 
   @FXML
-  private void login() {
+  private void login() throws SQLException, ClassNotFoundException {
     String username = usernameField.getText().trim();
     String password = passwordField.getText();
 
     if (username.isEmpty() || password.isEmpty()) {
       messageLabel.setText("Введите логин и пароль");
+      return;
+    }
+
+    DbConnection db = new DbConnection();
+
+    if (!db.canConnect()) {
+      messageLabel.setText("Ошибка подключения к базе данных");
       return;
     }
 

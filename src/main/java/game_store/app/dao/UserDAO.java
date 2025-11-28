@@ -74,7 +74,7 @@ public class UserDAO {
     return null;
   }
 
-  public User authenticate(String username, String plainPassword) {
+  public User authenticate(String username, String plainPassword) throws  ClassNotFoundException, SQLException {
     User u = findByUsername(username);
     if (u == null) return null;
     if (BCrypt.checkpw(plainPassword, u.getPasswordHash())) return u;

@@ -14,6 +14,7 @@ module game_store {
   requires java.sql;
   requires javafx.graphics;
   requires java.prefs;
+  requires org.postgresql.jdbc;
 
   opens game_store to javafx.fxml;
   opens game_store.app.models to javafx.base;
