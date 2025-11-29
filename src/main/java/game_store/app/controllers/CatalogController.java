@@ -127,7 +127,7 @@ public class CatalogController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/game_store/login.fxml"));
       Stage stage = (Stage) gameTable.getScene().getWindow();
       stage.setScene(new Scene(loader.load(), 500, 500));
-      stage.setResizable(false);
+      stage.setTitle("Game Store");
       stage.centerOnScreen();
 
       // Очищаем сессию при выходе
