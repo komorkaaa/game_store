@@ -85,7 +85,8 @@ public class LoginController {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/game_store/register.fxml"));
       Stage stage = (Stage) usernameField.getScene().getWindow();
-      stage.setScene(new Scene(loader.load(), 500, 550));
+      stage.setScene(new Scene(loader.load(), 500, 750));
+      stage.centerOnScreen();
     } catch (Exception e) {
       e.printStackTrace();
     }

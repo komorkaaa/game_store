@@ -3,10 +3,8 @@ package game_store.app.dao;
 import game_store.app.models.User;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 
 public class UserDAO {
 
@@ -38,15 +36,19 @@ public class UserDAO {
     }
   }
 
-  public boolean registerUser(String username, String email, String plainPassword) {
+  public boolean registerUser(String username, String email, String plainPassword, LocalDate birthday, String inn, String pasport, String phone_number ) {
     if (usernameExists(username) || emailExists(email)) return false;
     String hashed = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
-    String sql = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
+    String sql = "INSERT INTO users (username, email, password_hash, birthday, inn, pasport, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?)";
     try (Connection conn = db.getConnection();
          PreparedStatement st = conn.prepareStatement(sql)) {
       st.setString(1, username);
       st.setString(2, email);
       st.setString(3, hashed);
+      st.setDate(4, Date.valueOf(birthday));
+      st.setString(5, inn);
+      st.setString(6, pasport);
+      st.setString(7, phone_number);
       st.executeUpdate();
       return true;
     } catch (SQLException | ClassNotFoundException e) {
@@ -67,7 +69,11 @@ public class UserDAO {
                 rs.getString("username"),
                 rs.getString("email"),
                 rs.getString("password_hash"),
-                rs.getString("role")
+                rs.getString("role"),
+                rs.getDate("birthday"),
+                rs.getString("inn"),
+                rs.getString("pasport"),
+                rs.getString("phone_number")
         );
       }
     } catch (SQLException | ClassNotFoundException e) { e.printStackTrace(); }

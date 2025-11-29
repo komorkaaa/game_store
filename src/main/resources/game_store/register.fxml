@@ -1,65 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<VBox spacing="20" alignment="CENTER" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="game_store.app.controllers.RegisterController"
-      style="-fx-padding: 40; -fx-background-color: #f8f9fa; -fx-pref-width: 450; -fx-pref-height: 550;">
+<VBox alignment="CENTER" spacing="20" style="-fx-padding: 40; -fx-background-color: #f8f9fa; -fx-pref-width: 450; -fx-pref-height: 550;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game_store.app.controllers.RegisterController">
 
     <!-- Заголовок -->
-    <VBox spacing="10" alignment="CENTER">
-        <Label text="👤" style="-fx-font-size: 32px;"/>
-        <Label text="Регистрация" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
-        <Label text="Создайте новый аккаунт" style="-fx-font-size: 14px; -fx-text-fill: #666;"/>
+    <VBox alignment="CENTER" spacing="10">
+        <Label style="-fx-font-size: 32px;" text="👤" />
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;" text="Регистрация" />
+        <Label style="-fx-font-size: 14px; -fx-text-fill: #666;" text="Создайте новый аккаунт" />
     </VBox>
 
     <!-- Форма регистрации -->
-    <VBox spacing="15" alignment="CENTER_LEFT" style="-fx-pref-width: 300;">
+    <VBox alignment="CENTER_LEFT" spacing="15" style="-fx-pref-width: 300;">
 
         <!-- Имя пользователя -->
         <VBox spacing="5">
-            <Label text="Имя пользователя" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <Label text="Имя пользователя"
+                   style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
             <TextField fx:id="usernameField" promptText="Придумайте логин"
-                       style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;"/>
+                       style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;" />
         </VBox>
 
         <!-- Email -->
         <VBox spacing="5">
-            <Label text="Email" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <Label text="Email"
+                   style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;" />
             <TextField fx:id="emailField" promptText="Введите ваш email"
-                       style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;"/>
+                       style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;" />
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Номер телефона"
+                   style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;" />
+            <TextField fx:id="phoneField" promptText="Введите ваш номер телефона"
+                       style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;" />
+        </VBox>
+
+
+        <VBox spacing="5">
+            <Label text="День рождения"
+                   style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <DatePicker fx:id="birthdayPicker"
+                       style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;" />
+        </VBox>
+
+        <VBox spacing="5">
+            <Label  text="ИНН"
+                    style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <TextField fx:id="innField" promptText="Введите ваш инн"
+                       style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;" />
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Паспорт"
+                   style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <TextField fx:id="pasportField" promptText="Введите серию и номер паспорта"
+                       style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;" />
         </VBox>
 
         <!-- Пароль -->
         <VBox spacing="5">
-            <Label text="Пароль" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <Label text="Пароль"
+                   style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
             <PasswordField fx:id="passwordField" promptText="Придумайте пароль"
-                           style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;"/>
+                           style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;" />
         </VBox>
 
         <!-- Подтверждение пароля -->
         <VBox spacing="5">
-            <Label text="Подтверждение пароля" style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
-            <PasswordField fx:id="confirmField" promptText="Повторите пароль"
-                           style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;"/>
+            <Label text="Подтверждение пароля"
+                   style="-fx-font-weight: bold; -fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <PasswordField fx:id="confirmField" promptText="Повторите пароль" style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;" />
         </VBox>
 
-        <!-- Сообщение -->
-        <Label fx:id="messageLabel" style="-fx-text-fill: #dc3545; -fx-font-size: 12px; -fx-wrap-text: true;"
-               minHeight="40" VBox.vgrow="ALWAYS"/>
+        <Label fx:id="messageLabel"
+               minHeight="40"
+               alignment="CENTER"
+               textAlignment="CENTER"
+               maxWidth="Infinity"
+               style="-fx-text-fill: #dc3545; -fx-font-size: 12px; -fx-wrap-text: true;">
+            <VBox.margin>
+                <Insets bottom="10" top="-10"/>
+            </VBox.margin>
+
+        </Label>
+
+      <padding>
+         <Insets bottom="-30.0" />
+      </padding>
 
     </VBox>
 
     <!-- Кнопки -->
-    <VBox spacing="10" alignment="CENTER" style="-fx-pref-width: 300;">
-        <Button text="✅ Создать аккаунт" onAction="#register"
-                style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-pref-width: 300; -fx-pref-height: 40;"/>
+    <VBox alignment="CENTER" spacing="10"
+          style="-fx-pref-width: 300;">
+        <Button onAction="#register"
+                text="✅ Создать аккаунт"
+                style="-fx-background-color: #28a745;
+                -fx-text-fill: white;
+                -fx-font-weight: bold;
+                -fx-background-radius: 5;
+                -fx-pref-width: 300;
+                -fx-pref-height: 40;"/>
 
-        <HBox spacing="5" alignment="CENTER">
-            <Label text="Уже есть аккаунт?" style="-fx-text-fill: #666; -fx-font-size: 12px;"/>
-            <Button text="Войти" onAction="#backToLogin"
-                    style="-fx-background-color: transparent; -fx-text-fill: #007bff; -fx-font-weight: bold; -fx-border-color: transparent; -fx-padding: 0;"/>
+        <HBox alignment="CENTER" spacing="5">
+            <Label text="Уже есть аккаунт?"
+                   style="-fx-text-fill: #666; -fx-font-size: 12px;"/>
+            <Button onAction="#backToLogin"
+                    style="-fx-background-color: transparent; -fx-text-fill: #007bff; -fx-font-weight: bold; -fx-border-color: transparent; -fx-padding: 0;" text="Войти" />
         </HBox>
     </VBox>
 

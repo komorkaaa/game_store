@@ -43,8 +43,12 @@
                            style="-fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-pref-height: 35;"/>
         </VBox>
 
-        <Label fx:id="messageLabel" style="-fx-text-fill: #dc3545; -fx-font-size: 12px; -fx-wrap-text: true;"
-               minHeight="40" VBox.vgrow="ALWAYS"/>
+        <Label fx:id="messageLabel"
+               minHeight="40"
+               alignment="CENTER"
+               textAlignment="CENTER"
+               maxWidth="Infinity"
+               style="-fx-text-fill: #dc3545; -fx-font-size: 12px; -fx-wrap-text: true;"/>
 
     </VBox>
 
