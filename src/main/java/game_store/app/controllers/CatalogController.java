@@ -1,10 +1,9 @@
 package game_store.app.controllers;
 
-import game_store.app.dao.CartDAO;
-import game_store.app.dao.GameDAO;
-import game_store.app.dao.GenreDAO;
 import game_store.app.models.Game;
 import game_store.app.models.Session;
+import game_store.app.services.CartService;
+import game_store.app.services.GameCatalogService;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -16,7 +15,6 @@ import javafx.stage.Stage;
 
 public class CatalogController {
 
-
   @FXML private TableView<Game> gameTable;
   @FXML private TableColumn<Game, String> nameColumn;
   @FXML private TableColumn<Game, String> genreColumn;
@@ -26,8 +24,8 @@ public class CatalogController {
   @FXML private TextField searchField;
   @FXML private Button adminButton;
 
-  private final GameDAO gameDAO = new GameDAO();
-  private final GenreDAO genreDAO = new GenreDAO();
+  private final GameCatalogService catalogService = new GameCatalogService();
+  private final CartService cartService = new CartService();
 
   @FXML
   public void initialize() {
@@ -40,23 +38,20 @@ public class CatalogController {
   }
 
   private void setupTableColumns() {
-    nameColumn.setCellValueFactory(cellData ->
-            new SimpleStringProperty(cellData.getValue().getTitle()));
-    genreColumn.setCellValueFactory(cellData ->
-            new SimpleStringProperty(cellData.getValue().getGenreName()));
-    priceColumn.setCellValueFactory(cellData ->
-            new SimpleObjectProperty<>(cellData.getValue().getPrice()));
+    nameColumn.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTitle()));
+    genreColumn.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getGenreName()));
+    priceColumn.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getPrice()));
   }
 
   private void loadGenres() {
     genreComboBox.getItems().add("Все жанры");
-    genreComboBox.getItems().addAll(genreDAO.getAllGenres());
+    genreComboBox.getItems().addAll(catalogService.getAllGenres());
     genreComboBox.getSelectionModel().selectFirst();
-    genreComboBox.setOnAction(event -> filterGames());
+    genreComboBox.setOnAction(e -> filterGames());
   }
 
   private void loadGames() {
-    gameTable.getItems().setAll(gameDAO.getAllGames());
+    gameTable.getItems().setAll(catalogService.getAllGames());
   }
 
   private void filterGames() {
@@ -64,8 +59,7 @@ public class CatalogController {
     if (selected == null || selected.equals("Все жанры")) {
       loadGames();
     } else {
-      int genreId = genreDAO.getGenreIdByName(selected);
-      gameTable.getItems().setAll(gameDAO.getGamesByGenre(genreId));
+      gameTable.getItems().setAll(catalogService.getGamesByGenre(selected));
     }
   }
 
@@ -75,22 +69,25 @@ public class CatalogController {
     if (keyword.isEmpty()) {
       filterGames();
     } else {
-      gameTable.getItems().setAll(gameDAO.searchGamesByName(keyword));
+      gameTable.getItems().setAll(catalogService.searchGames(keyword));
     }
   }
 
   @FXML
   private void addToCart() {
     Game selected = gameTable.getSelectionModel().getSelectedItem();
-    if (selected != null) {
-      CartDAO cartDAO = new CartDAO();
-      cartDAO.addToCart(Session.getCurrentUserId(), selected);
+    if (selected == null) return;
+
+    try {
+      cartService.addToCart(Session.getCurrentUserId(), selected);
 
       Alert alert = new Alert(Alert.AlertType.INFORMATION);
       alert.setTitle("Корзина");
       alert.setHeaderText(null);
       alert.setContentText("Игра добавлена в корзину!");
       alert.showAndWait();
+    } catch (Exception e) {
+      showAlert("Ошибка", "Не удалось добавить в корзину: " + e.getMessage());
     }
   }
 
@@ -130,7 +127,6 @@ public class CatalogController {
       stage.setTitle("Game Store");
       stage.centerOnScreen();
 
-      // Очищаем сессию при выходе
       Session.clear();
     } catch (Exception e) {
       e.printStackTrace();
@@ -143,7 +139,7 @@ public class CatalogController {
       Parent root = loader.load();
 
       GameDetailsController controller = loader.getController();
-      controller.setGame(game); // ← Только один параметр
+      controller.setGame(game);
 
       Stage stage = new Stage();
       stage.setTitle("Информация об игре: " + game.getTitle());
@@ -158,8 +154,7 @@ public class CatalogController {
   private void setupDoubleClickHandler() {
     gameTable.setOnMouseClicked(event -> {
       if (event.getClickCount() == 2 && !gameTable.getSelectionModel().isEmpty()) {
-        Game selectedGame = gameTable.getSelectionModel().getSelectedItem();
-        openGameDetails(selectedGame);
+        openGameDetails(gameTable.getSelectionModel().getSelectedItem());
       }
     });
   }

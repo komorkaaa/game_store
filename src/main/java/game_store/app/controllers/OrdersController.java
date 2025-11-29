@@ -1,9 +1,9 @@
 package game_store.app.controllers;
 
-import game_store.app.dao.OrderDAO;
 import game_store.app.models.Order;
 import game_store.app.models.OrderItem;
 import game_store.app.models.Session;
+import game_store.app.services.OrderService;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,32 +18,31 @@ import java.util.List;
 
 public class OrdersController {
 
-  // Элементы интерфейса истории заказов
   @FXML private TableView<Order> ordersTable;
   @FXML private TableColumn<Order, Number> idColumn;
   @FXML private TableColumn<Order, String> dateColumn;
   @FXML private TableColumn<Order, Number> totalColumn;
 
-  private OrderDAO orderDAO = new OrderDAO();
+  private final OrderService orderService = new OrderService();
 
   @FXML
   public void initialize() {
-
     setupTableColumns();
-
     loadOrders();
   }
 
   private void setupTableColumns() {
     idColumn.setCellValueFactory(cell -> new SimpleIntegerProperty(cell.getValue().getId()));
-    dateColumn.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+    dateColumn.setCellValueFactory(cell ->
+            new SimpleStringProperty(cell.getValue()
+                    .getCreatedAt()
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
     totalColumn.setCellValueFactory(cell -> new SimpleDoubleProperty(cell.getValue().getTotal()));
   }
 
-
   private void loadOrders() {
     int userId = Session.getCurrentUserId();
-    List<Order> orders = orderDAO.getOrdersByUserId(userId);
+    List<Order> orders = orderService.getOrdersByUser(userId);
     ordersTable.getItems().setAll(orders);
   }
 
@@ -55,10 +54,8 @@ public class OrdersController {
       return;
     }
 
-    List<OrderItem> items = orderDAO.getOrderItems(selectedOrder.getId());
+    List<OrderItem> items = orderService.getOrderItems(selectedOrder.getId());
     StringBuilder orderDetails = new StringBuilder();
-
-    // Формирование детальной информации о заказе
     for (OrderItem item : items) {
       orderDetails.append(item.getGame().getTitle())
               .append(" x").append(item.getQuantity())
@@ -71,16 +68,16 @@ public class OrdersController {
 
   @FXML
   private void close() {
-    Stage st = (Stage) ordersTable.getScene().getWindow();
-    st.close();
+    Stage stage = (Stage) ordersTable.getScene().getWindow();
+    stage.close();
   }
 
-  private void showAlert(String title, String text) {
-    Alert a = new Alert(Alert.AlertType.INFORMATION);
-    a.setTitle(title);
-    a.setHeaderText(null);
-    a.setContentText(text);
-    a.getDialogPane().setPrefWidth(400);
-    a.showAndWait();
+  private void showAlert(String title, String content) {
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(content);
+    alert.getDialogPane().setPrefWidth(400);
+    alert.showAndWait();
   }
 }

@@ -1,7 +1,7 @@
 package game_store.app.controllers;
 
-import game_store.app.dao.GameDAO;
 import game_store.app.models.Game;
+import game_store.app.services.GameAdminService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,7 +17,6 @@ import java.time.LocalDate;
 
 public class AdminController {
 
-  // Элементы таблицы
   @FXML private TableView<Game> gameTable;
   @FXML private TableColumn<Game, Integer> idColumn;
   @FXML private TableColumn<Game, String> titleColumn;
@@ -28,7 +27,6 @@ public class AdminController {
   @FXML private TableColumn<Game, String> developerColumn;
   @FXML private TableColumn<Game, String> publisherColumn;
 
-  // Элементы формы редактирования
   @FXML private TextField titleField;
   @FXML private TextField genreField;
   @FXML private TextField priceField;
@@ -37,27 +35,23 @@ public class AdminController {
   @FXML private TextField publisherField;
   @FXML private TextArea descriptionArea;
 
-  // что то надо сделать????
   @FXML private Button addButton;
   @FXML private Button updateButton;
   @FXML private Button deleteButton;
   @FXML private Button clearButton;
 
-  private final GameDAO gameDAO = new GameDAO();
+  private final GameAdminService gameService = new GameAdminService();
   private ObservableList<Game> gameList;
 
   @FXML
   public void initialize() {
-
     setupTableColumns();
-
     loadGames();
-
     setupSelectionListener();
 
-    addButton.setOnAction(e -> addGame());
-    updateButton.setOnAction(e -> updateGame());
-    deleteButton.setOnAction(e -> deleteGame());
+    addButton.setOnAction(e -> handleAdd());
+    updateButton.setOnAction(e -> handleUpdate());
+    deleteButton.setOnAction(e -> handleDelete());
     clearButton.setOnAction(e -> clearForm());
   }
 
@@ -73,10 +67,9 @@ public class AdminController {
   }
 
   private void loadGames() {
-    gameList = FXCollections.observableArrayList(gameDAO.getAllGames());
+    gameList = FXCollections.observableArrayList(gameService.getAllGames());
     gameTable.setItems(gameList);
   }
-
 
   private void setupSelectionListener() {
     gameTable.getSelectionModel().selectedItemProperty().addListener(
@@ -90,62 +83,69 @@ public class AdminController {
       genreField.setText(game.getGenreName());
       priceField.setText(String.valueOf(game.getPrice()));
       descriptionArea.setText(game.getDescription());
-      if (game.getReleaseDate() != null)
-        releaseDatePicker.setValue(game.getReleaseDate().toLocalDate());
+      releaseDatePicker.setValue(
+              game.getReleaseDate() != null
+                      ? game.getReleaseDate().toLocalDate()
+                      : null
+      );
       developerField.setText(game.getDeveloper());
       publisherField.setText(game.getPublisher());
     }
   }
 
-  private void addGame() {
+  private void handleAdd() {
     try {
-      Game game = new Game(
-              0,
+      gameService.addGame(
               titleField.getText(),
-              Double.parseDouble(priceField.getText()),
               genreField.getText(),
+              Double.parseDouble(priceField.getText()),
               descriptionArea.getText(),
               releaseDatePicker.getValue() != null ? Date.valueOf(releaseDatePicker.getValue()) : null,
               developerField.getText(),
               publisherField.getText()
       );
-      gameDAO.addGame(game);
+
       loadGames();
       clearForm();
+
     } catch (Exception e) {
       showError("Ошибка при добавлении игры: " + e.getMessage());
     }
   }
 
-  void updateGame() {
+  private void handleUpdate() {
     Game selected = gameTable.getSelectionModel().getSelectedItem();
-    if (selected != null) {
-      try {
-        selected.setTitle(titleField.getText());
-        selected.setGenreName(genreField.getText());
-        selected.setPrice(Double.parseDouble(priceField.getText()));
-        selected.setDescription(descriptionArea.getText());
-        LocalDate date = releaseDatePicker.getValue();
-        selected.setReleaseDate(date != null ? Date.valueOf(date) : null);
-        selected.setDeveloper(developerField.getText());
-        selected.setPublisher(publisherField.getText());
+    if (selected == null) return;
 
-        gameDAO.updateGame(selected);
-        loadGames();
-        clearForm();
-      } catch (Exception e) {
-        showError("Ошибка при обновлении игры: " + e.getMessage());
-      }
+    try {
+      LocalDate date = releaseDatePicker.getValue();
+
+      gameService.updateGame(
+              selected,
+              titleField.getText(),
+              genreField.getText(),
+              Double.parseDouble(priceField.getText()),
+              descriptionArea.getText(),
+              date != null ? Date.valueOf(date) : null,
+              developerField.getText(),
+              publisherField.getText()
+      );
+
+      loadGames();
+      clearForm();
+
+    } catch (Exception e) {
+      showError("Ошибка при обновлении игры: " + e.getMessage());
     }
   }
 
-  private void deleteGame() {
+  private void handleDelete() {
     Game selected = gameTable.getSelectionModel().getSelectedItem();
-    if (selected != null) {
-      gameDAO.deleteGame(selected.getId());
-      loadGames();
-      clearForm();
-    }
+    if (selected == null) return;
+
+    gameService.deleteGame(selected.getId());
+    loadGames();
+    clearForm();
   }
 
   private void clearForm() {

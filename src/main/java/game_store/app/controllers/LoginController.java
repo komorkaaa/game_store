@@ -5,6 +5,7 @@ import game_store.app.dao.UserDAO;
 
 import game_store.app.models.Session;
 import game_store.app.models.User;
+import game_store.app.services.AuthService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,17 +43,14 @@ public class LoginController {
       return;
     }
 
-    DbConnection db = new DbConnection();
+    AuthService authService = new AuthService();
 
-    if (!db.canConnect()) {
+    if (!authService.canConnect()) {
       messageLabel.setText("Ошибка подключения к базе данных");
       return;
     }
 
-    // Аутентификация пользователя
-    UserDAO dao = new UserDAO();
-    User user = dao.authenticate(username, password);
-
+    User user = authService.login(username, password);
     if (user != null) {
       Session.setCurrentUser(user);
       openCatalog();
@@ -60,6 +58,7 @@ public class LoginController {
       messageLabel.setText("Неверный логин/пароль");
     }
   }
+
 
   public void openCatalog() {
     try {

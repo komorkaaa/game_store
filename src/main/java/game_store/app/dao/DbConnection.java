@@ -1,6 +1,6 @@
 package game_store.app.dao;
 
-import game_store.app.controllers.DBSettingsController;
+import game_store.app.services.DBSettingsService;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,30 +8,31 @@ import java.sql.SQLException;
 
 public class DbConnection {
 
+  private final String HOST;
+  private final String PORT;
+  private final String DB_NAME;
+  private final String LOGIN;
+  private final String PASS;
 
-  DBSettingsController data = new DBSettingsController();
+  public DbConnection() {
+    DBSettingsService settings = new DBSettingsService();
+    this.HOST = settings.getHost();
+    this.PORT = settings.getPort();
+    this.DB_NAME = settings.getDbName();
+    this.LOGIN = settings.getLogin();
+    this.PASS = settings.getPassword();
+  }
 
-  private final String HOST = data.userData.get("host", "host");
-  private final String PORT = data.userData.get("port", "port");
-  private final String DB_NAME = data.userData.get("db_name", "db_name");
-  private final String LOGIN = data.userData.get("login", "login");
-  private final String PASS = data.userData.get("pass", "pass");
-
-  // localhost:5432 game_store postgres
-
-  private Connection dbConn = null;
   public Connection getConnection() throws ClassNotFoundException, SQLException {
-    String connStr = "jdbc:postgresql://" + HOST + ":" + PORT + "/" + DB_NAME+"?currentSchema=public";
+    String connStr = "jdbc:postgresql://" + HOST + ":" + PORT + "/" + DB_NAME + "?currentSchema=public";
     Class.forName("org.postgresql.Driver");
-
-    dbConn = DriverManager.getConnection(connStr, LOGIN, PASS);
-    return dbConn;
+    return DriverManager.getConnection(connStr, LOGIN, PASS);
   }
 
   public boolean canConnect() {
     try (Connection conn = getConnection()) {
       return true;
-    } catch (SQLException | ClassNotFoundException e) {
+    } catch (Exception e) {
       return false;
     }
   }
