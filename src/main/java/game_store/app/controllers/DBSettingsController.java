@@ -52,8 +52,6 @@ public class DBSettingsController {
     messageLabel.setText("Изменения сохранены");
   }
 
-  String a = userData.get("HOST", "user");
-
   @FXML
   private void backToLogin() throws IOException {
     try {
