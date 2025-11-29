@@ -70,7 +70,6 @@ class RegisterServiceTest {
   void testSuccessfulRegistration() {
     UserDAO mockDao = mock(UserDAO.class);
 
-    // ✔ Пользователь не существует, регистрация успешна
     when(mockDao.registerUser(
             anyString(), anyString(), anyString(),
             any(LocalDate.class), anyString(), anyString(), anyString()
